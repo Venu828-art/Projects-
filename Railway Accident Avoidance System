@@ -1,0 +1,31 @@
+include <Servo.h>
+
+Servo gate;
+int sensor = 2;
+int buzzer = 3;
+int led = 4;
+
+void setup() {
+  pinMode(sensor, INPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(led, OUTPUT);
+  gate.attach(9);
+  gate.write(90);  // gate open
+  Serial.begin(9600);
+}
+
+void loop() {
+  int trainDetected = digitalRead(sensor);
+
+  if(trainDetected == LOW) {
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(led, HIGH);
+    gate.write(0);  // close gate
+  } else {
+    digitalWrite(buzzer, LOW);
+    digitalWrite(led, LOW);
+    gate.write(90); // open gate
+  }
+
+  delay(500);
+}
