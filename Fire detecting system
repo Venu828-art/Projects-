@@ -1,0 +1,24 @@
+int flameSensor = A0;
+int buzzer = 8;
+int led = 7;
+
+void setup() {
+  pinMode(buzzer, OUTPUT);
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int value = analogRead(flameSensor);
+  Serial.println(value);
+  
+  if(value < 100) { // Flame detected
+    digitalWrite(buzzer, HIGH);
+    digitalWrite(led, HIGH);
+  } else {
+    digitalWrite(buzzer, LOW);
+    digitalWrite(led, LOW);
+  }
+
+  delay(200);
+}
